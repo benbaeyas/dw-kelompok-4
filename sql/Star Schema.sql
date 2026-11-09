@@ -1,78 +1,72 @@
--- phpMyAdmin SQL Dump
--- version 5.2.3
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Nov 09, 2026 at 08:03 AM
--- Server version: 8.4.3
--- PHP Version: 8.3.30
+-- ========================================================
+-- SKRIP DDL STAR SCHEMA VERSI 2 (DW_KELOMPOK_4)
+-- Basis Data Target: dw_kelompok_4 (MariaDB / MySQL)
+-- Proses Bisnis: Kinerja Sales vs Target
+-- ========================================================
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+-- Nonaktifkan pengecekan foreign key sementara agar proses DROP & CREATE berjalan aman
+SET FOREIGN_KEY_CHECKS = 0;
 
+-- --------------------------------------------------------
+-- 1. HAPUS TABEL JIKA SUDAH ADA (Urutan dependensi terbalik)
+-- --------------------------------------------------------
+DROP TABLE IF EXISTS `fact_kinerja_sales_v2`;
+DROP TABLE IF EXISTS `dim_kategori_kinerja`;
+DROP TABLE IF EXISTS `dim_produk`;
+DROP TABLE IF EXISTS `dim_sales_person`;
+DROP TABLE IF EXISTS `dim_tanggal`;
+DROP TABLE IF EXISTS `dim_wilayah`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `adn_kl4`
---
-
+-- --------------------------------------------------------
+-- 2. PEMBUATAN TABEL DIMENSI
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dim_kategori_kinerja`
+-- Tabel Dimensi: dim_kategori_kinerja (Junk / Banding Dimension)
 --
-
 CREATE TABLE `dim_kategori_kinerja` (
-  `kategori_kinerja_key` int NOT NULL,
+  `kategori_kinerja_key` int NOT NULL AUTO_INCREMENT,
   `kode_kategori` varchar(10) NOT NULL,
   `nama_kategori` varchar(50) NOT NULL,
-  `keterangan_rentang` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
+  `keterangan_rentang` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`kategori_kinerja_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Table structure for table `dim_produk`
+-- Tabel Dimensi: dim_produk (SCD Tipe 1)
 --
-
 CREATE TABLE `dim_produk` (
-  `produk_key` int NOT NULL,
+  `produk_key` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
   `nama_produk` varchar(50) NOT NULL,
   `nomor_produk` varchar(25) NOT NULL,
   `sub_kategori` varchar(50) DEFAULT NULL,
   `kategori` varchar(50) DEFAULT NULL,
-  `list_price` decimal(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
+  `list_price` decimal(15,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`produk_key`),
+  KEY `idx_product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Table structure for table `dim_sales_person`
+-- Tabel Dimensi: dim_sales_person (SCD Tipe 2)
 --
-
 CREATE TABLE `dim_sales_person` (
-  `sales_person_key` int NOT NULL,
+  `sales_person_key` int NOT NULL AUTO_INCREMENT,
   `business_entity_id` int NOT NULL,
   `nama_lengkap` varchar(150) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
   `tanggal_masuk` date NOT NULL,
-  `komisi_pct` decimal(5,4) NOT NULL,
-  `bonus` decimal(15,2) NOT NULL,
-  `row_effective_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
+  `komisi_pct` decimal(5,4) NOT NULL DEFAULT '0.0000',
+  `bonus` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `row_effective_date` date NOT NULL,
+  `row_expiry_date` date NOT NULL DEFAULT '9999-12-31',
+  PRIMARY KEY (`sales_person_key`),
+  KEY `idx_sp_business_entity` (`business_entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Table structure for table `dim_tanggal`
+-- Tabel Dimensi: dim_tanggal (SCD Tipe 0 - Standar Kelas DW)
 --
-
 CREATE TABLE `dim_tanggal` (
   `tanggal_key` int NOT NULL,
   `tanggal` date NOT NULL,
@@ -85,138 +79,69 @@ CREATE TABLE `dim_tanggal` (
   `tanggal_dalam_bulan` int NOT NULL,
   `hari_dalam_minggu` int NOT NULL,
   `nama_hari` varchar(15) NOT NULL,
-  `is_akhir_pekan` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Dimensi tanggal standar kelas DW, versi 1.0 (Alternative Loop)';
+  `is_akhir_pekan` tinyint(1) NOT NULL,
+  PRIMARY KEY (`tanggal_key`),
+  UNIQUE KEY `uq_dim_tanggal` (`tanggal`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Dimensi tanggal standar kelas DW, versi 1.0 (Alternative Loop)';
 
 --
--- Dumping data for table `dim_tanggal`
+-- Tabel Dimensi: dim_wilayah (SCD Tipe 1)
 --
-
-INSERT INTO `dim_tanggal` (`tanggal_key`, `tanggal`, `tahun`, `semester`, `kuartal`, `bulan`, `nama_bulan`, `minggu_dalam_tahun`, `tanggal_dalam_bulan`, `hari_dalam_minggu`, `nama_hari`, `is_akhir_pekan`) VALUES
-(-1, '1900-01-01', 0, 0, 0, 0, 'Tidak diketahui', 0, 0, 0, 'Tidak diketahui', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dim_wilayah`
---
-
 CREATE TABLE `dim_wilayah` (
-  `wilayah_key` int NOT NULL,
+  `wilayah_key` int NOT NULL AUTO_INCREMENT,
   `territory_id` int DEFAULT NULL,
   `nama_wilayah` varchar(50) NOT NULL,
   `kode_negara` varchar(3) NOT NULL,
   `nama_negara` varchar(50) NOT NULL,
   `grup_wilayah` varchar(50) NOT NULL,
-  `is_active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`wilayah_key`),
+  KEY `idx_territory_id` (`territory_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+-- 3. PEMBUATAN TABEL FAKTA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fact_kinerja_sales_v2`
+-- Tabel Fakta: fact_kinerja_sales_v2
 --
-
 CREATE TABLE `fact_kinerja_sales_v2` (
   `tanggal_kuartal_key` int NOT NULL,
   `sales_person_key` int NOT NULL,
   `wilayah_key` int NOT NULL,
   `produk_key` int NOT NULL,
   `target_penjualan` decimal(15,2) DEFAULT NULL,
-  `realisasi_penjualan` decimal(15,2) NOT NULL,
+  `realisasi_penjualan` decimal(15,2) NOT NULL DEFAULT '0.00',
   `selisih_realisasi_target` decimal(15,2) DEFAULT NULL,
-  `jumlah_terjual` int NOT NULL,
-  `kategori_kinerja_key` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `jumlah_terjual` int NOT NULL DEFAULT '0',
+  `kategori_kinerja_key` int NOT NULL,
+  PRIMARY KEY (`tanggal_kuartal_key`, `sales_person_key`, `wilayah_key`, `produk_key`),
+  KEY `idx_fk_sales_person` (`sales_person_key`),
+  KEY `idx_fk_wilayah` (`wilayah_key`),
+  KEY `idx_fk_produk` (`produk_key`),
+  KEY `idx_fk_kategori_kinerja` (`kategori_kinerja_key`),
+  CONSTRAINT `fk_fact_tanggal` FOREIGN KEY (`tanggal_kuartal_key`) REFERENCES `dim_tanggal` (`tanggal_key`),
+  CONSTRAINT `fk_fact_sales_person` FOREIGN KEY (`sales_person_key`) REFERENCES `dim_sales_person` (`sales_person_key`),
+  CONSTRAINT `fk_fact_wilayah` FOREIGN KEY (`wilayah_key`) REFERENCES `dim_wilayah` (`wilayah_key`),
+  CONSTRAINT `fk_fact_produk` FOREIGN KEY (`produk_key`) REFERENCES `dim_produk` (`produk_key`),
+  CONSTRAINT `fk_fact_kategori_kinerja` FOREIGN KEY (`kategori_kinerja_key`) REFERENCES `dim_kategori_kinerja` (`kategori_kinerja_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Indexes for dumped tables
---
+-- --------------------------------------------------------
+-- 4. INSERT DATA AWAL (DEFAULT / DUMMY RECORD)
+-- --------------------------------------------------------
 
---
--- Indexes for table `dim_kategori_kinerja`
---
-ALTER TABLE `dim_kategori_kinerja`
-  ADD PRIMARY KEY (`kategori_kinerja_key`);
+-- Baris dummy untuk tanggal tidak diketahui
+INSERT INTO `dim_tanggal` (
+  `tanggal_key`, `tanggal`, `tahun`, `semester`, `kuartal`, `bulan`,
+  `nama_bulan`, `minggu_dalam_tahun`, `tanggal_dalam_bulan`, `hari_dalam_minggu`,
+  `nama_hari`, `is_akhir_pekan`
+) VALUES (
+  -1, '1900-01-01', 0, 0, 0, 0,
+  'Tidak diketahui', 0, 0, 0,
+  'Tidak diketahui', 0
+);
 
---
--- Indexes for table `dim_produk`
---
-ALTER TABLE `dim_produk`
-  ADD PRIMARY KEY (`produk_key`);
-
---
--- Indexes for table `dim_sales_person`
---
-ALTER TABLE `dim_sales_person`
-  ADD PRIMARY KEY (`sales_person_key`);
-
---
--- Indexes for table `dim_tanggal`
---
-ALTER TABLE `dim_tanggal`
-  ADD PRIMARY KEY (`tanggal_key`),
-  ADD UNIQUE KEY `tanggal` (`tanggal`);
-
---
--- Indexes for table `dim_wilayah`
---
-ALTER TABLE `dim_wilayah`
-  ADD PRIMARY KEY (`wilayah_key`);
-
---
--- Indexes for table `fact_kinerja_sales_v2`
---
-ALTER TABLE `fact_kinerja_sales_v2`
-  ADD PRIMARY KEY (`tanggal_kuartal_key`,`sales_person_key`,`wilayah_key`,`produk_key`),
-  ADD KEY `sales_person_key` (`sales_person_key`),
-  ADD KEY `wilayah_key` (`wilayah_key`),
-  ADD KEY `produk_key` (`produk_key`),
-  ADD KEY `fk_kategori_kinerja` (`kategori_kinerja_key`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `dim_kategori_kinerja`
---
-ALTER TABLE `dim_kategori_kinerja`
-  MODIFY `kategori_kinerja_key` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `dim_produk`
---
-ALTER TABLE `dim_produk`
-  MODIFY `produk_key` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `dim_sales_person`
---
-ALTER TABLE `dim_sales_person`
-  MODIFY `sales_person_key` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `dim_wilayah`
---
-ALTER TABLE `dim_wilayah`
-  MODIFY `wilayah_key` int NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `fact_kinerja_sales_v2`
---
-ALTER TABLE `fact_kinerja_sales_v2`
-  ADD CONSTRAINT `fact_kinerja_sales_v2_ibfk_1` FOREIGN KEY (`tanggal_kuartal_key`) REFERENCES `dim_tanggal` (`tanggal_key`),
-  ADD CONSTRAINT `fact_kinerja_sales_v2_ibfk_2` FOREIGN KEY (`sales_person_key`) REFERENCES `dim_sales_person` (`sales_person_key`),
-  ADD CONSTRAINT `fact_kinerja_sales_v2_ibfk_3` FOREIGN KEY (`wilayah_key`) REFERENCES `dim_wilayah` (`wilayah_key`),
-  ADD CONSTRAINT `fact_kinerja_sales_v2_ibfk_4` FOREIGN KEY (`produk_key`) REFERENCES `dim_produk` (`produk_key`),
-  ADD CONSTRAINT `fk_kategori_kinerja` FOREIGN KEY (`kategori_kinerja_key`) REFERENCES `dim_kategori_kinerja` (`kategori_kinerja_key`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Aktifkan kembali pengecekan foreign key
+SET FOREIGN_KEY_CHECKS = 1;
