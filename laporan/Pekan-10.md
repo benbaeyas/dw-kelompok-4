@@ -36,6 +36,7 @@ Semua anggota tim dapat dihubungi dan pembagian kerja berjalan lancar sesuai den
 
 | Target                                        | Penanggung jawab              |
 | --------------------------------------------- | ----------------------------- |
+| Mengawal jadwal sprint ETL, memantau milestone integrasi data, serta menyiapkan draf laporan progres Pekan 12 | Benaya (Project Manager) |
 | Persiapan skrip DDL untuk Star Schema final   | Nalendra (Data Modeler)       |
 | Merancang awal transformasi dimensi SCD (ETL) | Jaya (ETL Developer)          |
 | Menyiapkan kerangka skema Mondrian            | Christian (OLAP Developer)    |
