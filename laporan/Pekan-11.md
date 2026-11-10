@@ -57,8 +57,8 @@ Koordinasi antar anggota tim berjalan dengan baik melalui pertemuan mingguan dan
 
 | Nama | Peran | Yang dikerjakan pekan ini | Bukti commit |
 | :--- | :--- | :--- | :---: |
-| **Andreas Benaya** | Project Manager | Mengoordinasikan pembagian tugas Pekan 11, menyusun dokumen Laporan Progres Pekan 11, dan mengawal keselarasan target sponsor. | [Tautan commit] |
-| **Nalendra Fadilah Saskara** | Data Modeler | Memperbaiki skema star schema ke versi 2, menyelaraskan `dim_tanggal` & `dim_produk` standar, serta menyusun Source-to-Target Mapping (STTM). | [Tautan commit] |
-| **Muhammad Alvian Jaya** | ETL Developer | Melakukan uji koneksi Pentaho Data Integration (Spoon), mengonfigurasi Table Input sumber, dan merancang alur urutan load tabel. | [Tautan commit] |
-| **Christian Starly** | OLAP Developer | Merancang arsitektur Cube Mondrian, memetakan dimensi, hierarki, measure, serta formula calculated member pencapaian target. | [Tautan commit] |
-| **Wahyu Pratama Andhika M.** | Dashboard Developer | Merancang wireframe dashboard lengkap dan memetakan setiap komponen visual ke 5 pertanyaan bisnis. | [Tautan commit] |
+| **Andreas Benaya** | Project Manager | Mengoordinasikan pembagian tugas Pekan 11, menyusun dokumen Laporan Progres Pekan 11, dan mengawal keselarasan target sponsor. | [`141b068`](https://github.com/benbaeyas/dw-kelompok-4/commit/141b068a26069700d5e234d67e1f6e0d9e64253c) |
+| **Nalendra Fadilah Saskara** | Data Modeler | Memperbaiki skema star schema ke versi 2, menyelaraskan `dim_tanggal` & `dim_produk` standar, serta menyusun Source-to-Target Mapping (STTM). | [`6d00fca`](https://github.com/benbaeyas/dw-kelompok-4/commit/6d00fca4d3de4d407a398322df393787f01fca66) |
+| **Muhammad Alvian Jaya** | ETL Developer | Melakukan uji koneksi Pentaho Data Integration (Spoon), mengonfigurasi Table Input sumber, dan merancang alur urutan load tabel. | [`14554cb`](https://github.com/benbaeyas/dw-kelompok-4/commit/14554cb43ab421508c80da5e4b670b1303efd22e) |
+| **Christian Starly** | OLAP Developer | Merancang arsitektur Cube Mondrian, memetakan dimensi, hierarki, measure, serta formula calculated member pencapaian target. | [`cf6e150`](https://github.com/benbaeyas/dw-kelompok-4/commit/cf6e150792ad723c3a1f3808057bfd6392e47979) |
+| **Wahyu Pratama Andhika M.** | Dashboard Developer | Merancang wireframe dashboard lengkap dan memetakan setiap komponen visual ke 5 pertanyaan bisnis. | [`def8623`](https://github.com/benbaeyas/dw-kelompok-4/commit/def86234cb366534007d625777a5eec519bfa646) |
