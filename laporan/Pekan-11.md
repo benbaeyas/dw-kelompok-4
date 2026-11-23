@@ -10,13 +10,13 @@ Status : Hijau
 
 | Target pekan ini | Status | Bukti (tautan file, commit, tangkapan layar) |
 | :--- | :---: | :--- |
-| **Perbaiki star schema menjadi versi 2**<br>Ikuti catatan sponsor dari Steering Review hari ini. Pakai struktur `dim_tanggal` standar apa adanya. Sesuaikan `dim_produk` dengan struktur standar. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/Star%20Schema.sql |
-| **Source-to-target mapping lengkap**<br>Untuk setiap kolom di setiap dimensi dan fakta. Pakai templat mapping lengkap. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/mapping.md |
-| **Strategi SCD tiap dimensi**<br>Tulis tipe yang dipakai untuk kolom-kolom penting beserta alasannya. Minimal satu dimensi memakai tipe 2. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/strategi_scd.md |
-| **Urutan load**<br>Daftar urutan tabel yang dimuat, dari staging sampai fakta. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/urutan_load_data.md |
-| **Desain cube**<br>Tabel desain dimensi, hierarki, measure, dan minimal satu calculated member. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/desain_cube.md |
-| **Wireframe dashboard**<br>Setiap visual diberi nomor pertanyaan bisnis yang dijawabnya. Semua pertanyaan bisnis terwakili. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/dashboard/Dashboard%20Sales.png |
-| **Uji Pentaho**<br>Pasang Pentaho Data Integration, buka Spoon, buat koneksi ke database sumber, dan jalankan satu Table Input sederhana. Simpan tangkapan layarnya. | Selesai | https://github.com/benbaeyas/dw-kelompok-4/issues/1 https://github.com/benbaeyas/dw-kelompok-4/blob/main/etl/uji_pentaho-Adventureworks.ktr |
+| **Perbaiki star schema menjadi versi 2**<br>Ikuti catatan sponsor dari Steering Review hari ini. Pakai struktur `dim_tanggal` standar apa adanya. Sesuaikan `dim_produk` dengan struktur standar. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/Star%20Schema.sql https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/starschema_v2.md |
+| **Source-to-target mapping lengkap**<br>Untuk setiap kolom di setiap dimensi dan fakta. Pakai templat mapping lengkap. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/mapping.md |
+| **Strategi SCD tiap dimensi**<br>Tulis tipe yang dipakai untuk kolom-kolom penting beserta alasannya. Minimal satu dimensi memakai tipe 2. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/strategi_scd.md |
+| **Urutan load**<br>Daftar urutan tabel yang dimuat, dari staging sampai fakta. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/urutan_load_data.md |
+| **Desain cube**<br>Tabel desain dimensi, hierarki, measure, dan minimal satu calculated member. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/desain_cube.md |
+| **Wireframe dashboard**<br>Setiap visual diberi nomor pertanyaan bisnis yang dijawabnya. Semua pertanyaan bisnis terwakili. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/dashboard/WIRAFRAME%20DASHBOARD.png |
+| **Uji Pentaho**<br>Pasang Pentaho Data Integration, buka Spoon, buat koneksi ke database sumber, dan jalankan satu Table Input sederhana. Simpan tangkapan layarnya. | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/issues/1 https://github.com/benbaeyas/dw-kelompok-4/blob/main/etl/uji_pentaho-Adventureworks.ktr |
 
 ---
 

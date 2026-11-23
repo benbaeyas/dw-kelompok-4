@@ -10,12 +10,12 @@ Status : Hijau
 
 | Target pekan ini | Status | Bukti (tautan file, commit, tangkapan layar) |
 | :--- | :---: | :--- |
-| Pasang `dim_tanggal` standar v1.0 (2192 baris, 20130315 = Jumat) | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/dim_tanggal_mysql.sql |
-| `sql/ddl.sql` dapat dijalankan dua kali tanpa error | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/ddl_kelompok-4.sql |
-| Uji constraint (FK, CHECK, PK) | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/uji_constraint.sql https://github.com/benbaeyas/dw-kelompok-4/issues/2#issue-6435877741 |
-| Kamus data semua tabel | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/kamus-data.md |
-| ERD hasil reverse engineering dan perbandingan dengan v2 | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/erd_star_schema.html |
-| Daftar tabel staging di dokumen pemetaan | Selesai | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/dokumen%20mapping.md |
+| **Pasang `dim_tanggal`**<br>standar v1.0 (2192 baris, 20130315 = Jumat) | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/dim_tanggal_mysql.sql |
+| **`sql/ddl.sql` dapat dijalankan dua kali tanpa error** | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/ddl_kelompok-4.sql |
+| **Uji constraint (FK, CHECK, PK)** | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/sql/uji_constraint.sql https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/uji_constraint.md |
+| **Kamus data semua tabel** | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/kamus-data.md |
+| **ERD hasil reverse engineering dan perbandingan dengan v2** | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/issues/3 |
+| **Daftar tabel staging di dokumen pemetaan** | [Selesai] | https://github.com/benbaeyas/dw-kelompok-4/blob/main/docs/dokumen%20mapping.md |
     
 ## 2. Kendala pengerjaan
 
@@ -49,10 +49,10 @@ Pembagian kinerja antar peran antar tim belum optimal. Disarankan untuk segera m
 
 ## 6. Kontribusi anggota
 
-| Anggota | Peran | Kontribusi |
-|---|---|---|
-| Andreas Benaya | Project Manager | [`141b068`] (https://github.com/benbaeyas/dw-kelompok-4/commit/ac6c1f14550d8dc461474b577ef9bcd2aaa965d1) |
-| Nalendra Fadilah Saskara | Data Modeler | [isi: kamus data, ERD] (https://github.com/benbaeyas/dw-kelompok-4/commit/8be110f8947f849007ed7c617204e5d74bb32162) |
-| Muhammad Alvian Jaya | ETL Developer | [isi: daftar staging] (https://github.com/benbaeyas/dw-kelompok-4/commit/32e5070fa55a6ecb40c97d67d692edd5653a68ee) |
-| Christian Starly | OLAP Developer | [isi] (https://github.com/benbaeyas/dw-kelompok-4/commit/77adffd78b0acee639824bc9eaf93b177cb9af78) |
-| Wahyu Pratama Andhika M. | Dashboard Developer | [isi] (https://github.com/benbaeyas/dw-kelompok-4/commit/668c40ae9ac5fce3e19b7529da8be50145b7bf21) |
+| Nama | Peran | Yang dikerjakan pekan ini | Bukti commit |
+| :--- | :--- | :--- | :---: |
+| **Andreas Benaya** | Project Manager | Mengoordinasikan target capaian Pekan 12, menyusun dokumen Laporan Progres Pekan 12, serta mengelola pelacakan isu pengujian di repositori. | [`ac6c1f1`](https://github.com/benbaeyas/dw-kelompok-4/commit/ac6c1f14550d8dc461474b577ef9bcd2aaa965d1) |
+| **Nalendra Fadilah Saskara** | Data Modeler | Membuat diagram ERD hasil reverse engineering Star Schema (`erd_star_schema.html`) dan membandingkannya dengan skema v2. | [`8be110f`](https://github.com/benbaeyas/dw-kelompok-4/commit/8be110f8947f849007ed7c617204e5d74bb32162) |
+| **Muhammad Alvian Jaya** | ETL Developer | Mengembangkan skrip DDL database DW (`ddl_kelompok-4.sql`) yang idempotent (bebas error saat dijalankan berulang) serta menyusun daftar tabel staging di dokumen pemetaan. | [`32e5070`](https://github.com/benbaeyas/dw-kelompok-4/commit/32e5070fa55a6ecb40c97d67d692edd5653a68ee) |
+| **Christian Starly** | OLAP Developer | Menyusun dan mengeksekusi skrip pengujian integritas constraint database (`uji_constraint.sql`) meliputi Foreign Key, CHECK constraint, dan Primary Key. | [`77adffd`](https://github.com/benbaeyas/dw-kelompok-4/commit/77adffd78b0acee639824bc9eaf93b177cb9af78) |
+| **Wahyu Pratama Andhika M.** | Dashboard Developer | Menyusun dokumen kamus data komprehensif (`kamus-data.md`) untuk seluruh tabel fakta dan tabel dimensi data warehouse. | [`668c40a`](https://github.com/benbaeyas/dw-kelompok-4/commit/668c40ae9ac5fce3e19b7529da8be50145b7bf21) |
